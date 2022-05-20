@@ -1,7 +1,7 @@
 # SeedSigner Emulator
 > Allows to execute [SeedSigner](https://github.com/SeedSigner) air-gapped hardware wallet in your desktop.
 
-![](imgs/demo.gif)
+![](img/demo.gif)
 
 
 > newly created repository please give me some time to review everything and prove that anyone can use it easily
