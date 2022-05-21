@@ -11,7 +11,7 @@ I have tried to make it as non-invasive as possible so that the emulator can be 
 
 You only have to merge the **seedsigner** from this repository with the seedsigner folder under [SeedSigner](https://github.com/SeedSigner/seedsigner) repository
 
-![](img/tree_content.gif)
+![](img/tree_content.png)
 
 
 ## Usage from source
