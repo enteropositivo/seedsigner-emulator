@@ -13,25 +13,25 @@ I have tried to make it as non-invasive as possible so that the emulator can be 
 
 ## Usage from source
 
-1- First clone [SeedSigner](https://github.com/SeedSigner/seedsigner) repo
+**1-** First clone [SeedSigner](https://github.com/SeedSigner/seedsigner) repo
 
 ```sh
 git clone https://github.com/SeedSigner/seedsigner.git
 ```
 
-2- Go to directory _seedsigner/src_
+**2-** Go to directory _seedsigner/src_
 
 ```sh
 cd seedsigner/src
 ```
 
-3- Download the contents of this respository [Seedsigner emulator (.zip)](https://github.com/enteropositivo/seedsigner-emulator/archive/refs/heads/master.zip) and merge the contents of the folder **seedsigner**
+**3-** Download the contents of this respository [Seedsigner emulator (.zip)](https://github.com/enteropositivo/seedsigner-emulator/archive/refs/heads/master.zip) and merge the contents of the folder **seedsigner**
 
 ![](img/tree_content.png)
 
 with the existing **seedsigner** content you cloned in step 1.  
 
-4- Install the following requeriments:
+**4-** Install the following requeriments:
 
 ```sh
 pip3 install embit
@@ -47,22 +47,27 @@ sudo apt-get install python3-tk
 pip3 install tk
 ```
 
-Run the emulator
+**5-** Run the emulator
 ```sh
 python3 main.py
 ```
 
-## Make a standalone executable
+## Making a standalone executable
 
-You'll need to install PYinstaller to be able to generate an executable.
+You'll need to install PYinstaller to be able to generate an executable for your OS.
 
 ```sh
-pip install pyinstaller
+pip3 install pyinstaller
 ```
 go to your proyect main forlder where _main.py_ stands and execute the following command
 
 ```sh
 pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\resources main.py
+```
+If you found an error **unable to execute command pyinstaller** try using the following command
+
+```sh
+python3 -m pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\resources main.py
 ```
 
 **Note:** I'll upload releases for linux and windows
@@ -85,6 +90,5 @@ This is the first release and there are still many things to be solved.  The web
 ## Contact
 
 Follow me at Twitter – [@EnteroPositivo](https://twitter.com/enteropositivo)  
-
 
 
