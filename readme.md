@@ -1,17 +1,14 @@
 # SeedSigner Emulator
-> Allows to execute [SeedSigner](https://github.com/SeedSigner) air-gapped hardware wallet in your desktop.
+> Allows to execute [SeedSigner](https://github.com/SeedSigner) air-gapped hardware wallet in your desktop (windows/linux/mac)
 
 ![](img/demo.gif)
 
 
 ## How it works
-New display driver that replaces the existing SeedSigner ST7789 1.3 driver, making possible to execute the device in a desktop enviroment.
+I made a new display driver that replaces the existing _SeedSigner ST7789 1.3_ driver, making possible to execute the device in a desktop enviroment.
 
 I have tried to make it as non-invasive as possible so that the emulator can be used with other versions of Seedsigner with as little effort as possible.
 
-You only have to merge the **seedsigner** from this repository with the seedsigner folder under [SeedSigner](https://github.com/SeedSigner/seedsigner) repository
-
-![](img/tree_content.png)
 
 
 ## Usage from source
@@ -28,7 +25,11 @@ git clone https://github.com/SeedSigner/seedsigner.git
 cd seedsigner/src
 ```
 
-3- Download the contents of this respository [Seedsigner emulator (.zip)](https://github.com/enteropositivo/seedsigner-emulator/archive/refs/heads/master.zip), and merge the contents of the folder **seedsigner** with the existing **seedsigner** content.  
+3- Download the contents of this respository [Seedsigner emulator (.zip)](https://github.com/enteropositivo/seedsigner-emulator/archive/refs/heads/master.zip) and merge the contents of the folder **seedsigner**
+
+![](img/tree_content.png)
+
+with the existing **seedsigner** content you cloned in step 1.  
 
 4- Install the following requeriments:
 
@@ -41,7 +42,7 @@ pip3 install pyzbar
 pip3 install 
 sudo apt install libzbar0
 pip3 install git+https://github.com/jreesun/urtypes.git@e0d0db277ec2339650343eaf7b220fffb9233241
-pip3 install qrcode **
+pip3 install qrcode 
 sudo apt-get install python3-tk
 pip3 install tk
 ```
@@ -64,7 +65,7 @@ go to your proyect main forlder where _main.py_ stands and execute the following
 pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\resources main.py
 ```
 
-I'll upload releases for linux and windows
+**Note:** I'll upload releases for linux and windows
 
 
 ## Pending Tasks
