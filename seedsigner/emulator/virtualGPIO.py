@@ -4,7 +4,7 @@
 #
 #  by: @EnteroPositivo (Twitter, Gmail, GitHub)
 #   
-#  Code adapted from this original idea : https://roderickvella.wordpress.com/2016/06/28/raspberry-pi-gpio-emulator/
+#  Code from: https://roderickvella.wordpress.com/2016/06/28/raspberry-pi-gpio-emulator/
 
 
 import time
@@ -118,15 +118,14 @@ class GPIO:
     def fire_raise_event(gpioID):
         global dictionaryPins
 
+        print( "Emulator GPIO:", gpioID)
+        
         objPin = dictionaryPins[str(gpioID)]
         
-        #print(objPin.In)
         objPin.In = "0"
-        time.sleep(0.04)
+        time.sleep(0.02)
         objPin.In = "1"
         GPIO.risecallback(gpioID)
-               
-            
 
 
     def Raise():

@@ -29,10 +29,11 @@ class Camera(Singleton):
             self.stop_video_stream_mode()
 
         #self._video_stream = PiVideoStream(resolution=resolution,framerate=framerate, format=format)
-        self._video_stream.start()
+        #self._video_stream.start()
 
 
     def read_video_stream(self, as_image=False):
+        raise Exception("Feature not avaliable in emulator")
         if not self._video_stream:
             raise Exception("Must call start_video_stream first.")
         frame = self._video_stream.read()

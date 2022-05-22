@@ -131,7 +131,6 @@ class HardwareButtons(Singleton):
 
     def rising_callback(channel):
         HardwareButtonsConstants.release_lock = True
-        print("rising_callback")
 
 
     def trigger_override(self, force_release = False) -> bool:

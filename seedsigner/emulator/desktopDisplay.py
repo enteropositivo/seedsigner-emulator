@@ -19,7 +19,7 @@ from PIL import ImageTk
 import threading
 import os
 
-
+EMULATOR_VERSION = '0.1'
         
 
 class desktopDisplay(threading.Thread):
@@ -47,10 +47,10 @@ class desktopDisplay(threading.Thread):
         
         from seedsigner.controller import Controller
         controller = Controller.get_instance()
-        self.root.title("SeedSigner Emulator v1.0 ("+controller.VERSION+")")
+        self.root.title("SeedSigner Emulator v"+EMULATOR_VERSION+ " / "+controller.VERSION)
 
         self.root.protocol("WM_DELETE_WINDOW", self.callback)
-        self.root.geometry("520x245+200+200")
+        self.root.geometry("490x245+200+200")
         self.root.configure(bg='orange')
         self.root.iconphoto(False, tk.PhotoImage(file='seedsigner/resources/icons/emulator_icon.png'))
         # ....
@@ -59,24 +59,36 @@ class desktopDisplay(threading.Thread):
         self.label=Label(self.root)
         self.label.pack()
 
-        self.btnL = Button(self.root, width=2, command = HardwareButtons.KEY_LEFT_PIN, bg='white')
-        self.btnL.place(x=40, y=100)
+        self.joystick=Frame(self.root)
+        self.joystick.pack()
+        self.joystick.place(x=20, y=75)
+        self.joystick.configure(bg='orange')
+        
+
+
+        self.btnL = Button(self.joystick, width=2, command = HardwareButtons.KEY_LEFT_PIN, bg='white')
+        #self.btnL.place(x=40, y=100)
+        self.btnL.grid(row=1, column=0)
         self.bindButtonClick(self.btnL)
 
-        self.btnR = Button(self.root, width=2, command = HardwareButtons.KEY_RIGHT_PIN, bg='white')
-        self.btnR.place(x=100, y=100)
+        self.btnR = Button(self.joystick, width=2, command = HardwareButtons.KEY_RIGHT_PIN, bg='white')
+        #self.btnR.place(x=100, y=100)
+        self.btnR.grid(row=1, column=2)
         self.bindButtonClick(self.btnR)
 
-        self.btnC = Button(self.root, width=2, command = HardwareButtons.KEY_PRESS_PIN)
-        self.btnC.place(x=70, y=100)
+        self.btnC = Button(self.joystick, width=2, command = HardwareButtons.KEY_PRESS_PIN)
+        #self.btnC.place(x=70, y=100)
+        self.btnC.grid(row=1, column=1)
         self.bindButtonClick(self.btnC)
 
-        self.btnU = Button(self.root, width=2, command = HardwareButtons.KEY_UP_PIN, bg='white')
-        self.btnU.place(x=70, y=70)
+        self.btnU = Button(self.joystick, width=2, command = HardwareButtons.KEY_UP_PIN, bg='white')
+        #self.btnU.place(x=70, y=70)
+        self.btnU.grid(row=0, column=1)
         self.bindButtonClick(self.btnU)
 
-        self.btnD = Button(self.root, width=2, command = HardwareButtons.KEY_DOWN_PIN, bg='white')
-        self.btnD.place(x=70, y=130)
+        self.btnD = Button(self.joystick, width=2, command = HardwareButtons.KEY_DOWN_PIN, bg='white')
+        #self.btnD.place(x=70, y=130)
+        self.btnD.grid(row=2, column=1)
         self.bindButtonClick(self.btnD)
 
         self.btn1 = Button(self.root, width=4,  command = HardwareButtons.KEY1_PIN, bg='white')
@@ -91,11 +103,25 @@ class desktopDisplay(threading.Thread):
         self.btn3.place(x=400, y=162)
         self.bindButtonClick(self.btn3)
 
-        self.root.resizable(width = False, height = True)
-        self.root.mainloop()
-
         
+        def key_handler(event):
+            #print(event.char, event.keysym, event.keycode)
+            #print(event.keycode)
+            if(event.keycode==38): GPIO.fire_raise_event(HardwareButtons.KEY_UP_PIN)
+            if(event.keycode==40): GPIO.fire_raise_event(HardwareButtons.KEY_DOWN_PIN)
+            if(event.keycode==37): GPIO.fire_raise_event(HardwareButtons.KEY_LEFT_PIN)
+            if(event.keycode==39): GPIO.fire_raise_event(HardwareButtons.KEY_RIGHT_PIN)
 
+            if(event.keycode==97): GPIO.fire_raise_event(HardwareButtons.KEY1_PIN)
+            if(event.keycode==98): GPIO.fire_raise_event(HardwareButtons.KEY2_PIN)
+            if(event.keycode==99): GPIO.fire_raise_event(HardwareButtons.KEY3_PIN)
+
+            if(event.keycode==13): GPIO.fire_raise_event(HardwareButtons.KEY_PRESS_PIN)
+
+        self.root.bind("<Key>", key_handler)
+
+        self.root.resizable(width = True, height = True)
+        self.root.mainloop()
      
  
     def bindButtonClick(self, objBtn):
@@ -105,6 +131,8 @@ class desktopDisplay(threading.Thread):
         gpioID = (objBtn.widget.config('command')[-1])
         GPIO.fire_raise_event(gpioID)
 
+    def setGPIO(self, pin):
+        GPIO.fire_raise_event(pin)
 
     def ShowImage(self,Image2,Xstart,Ystart):
         imwidth, imheight = Image2.size
