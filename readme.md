@@ -1,7 +1,7 @@
 # SeedSigner Emulator
 > Allows to execute [SeedSigner](https://github.com/SeedSigner) air-gapped hardware wallet in your desktop (windows/linux/mac)
 
-![](img/demo.gif)
+![](img/ubuntu.png)
 
 
 ## How it works
@@ -11,6 +11,7 @@ I made a new display driver that replaces the existing _SeedSigner ST7789 1.3_ d
 
 I have tried to make it as non-invasive as possible so that the emulator can be used with other versions of Seedsigner with as little effort as possible.
 
+![](img/demo.gif)
 
 
 ## :lock: Security tips
@@ -85,7 +86,9 @@ python3 -m pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\reso
 ## Pending Tasks
 
 - [ ] Fix screen saver
+- [ ] Fix keyboard capture on Ubuntu (on windows works ok)
 - [ ] Allow desktop webcam
+ 
 
 
 ## :coffee: Buy me a Coffe
