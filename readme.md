@@ -88,6 +88,7 @@ python3 -m pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\reso
 - [ ] Fix screen saver
 - [ ] Fix keyboard capture on Ubuntu (on windows works ok)
 - [ ] Allow desktop webcam
+- [ ] Test command to make a **one file** standalone executable
  
 
 
@@ -96,6 +97,7 @@ python3 -m pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\reso
 I can work faster and more motivated if you help me with a donation 
 
 **bc1q554p5jqgdhle07cnc5cm6v6nu7ux9ztem8dggc**
+
 
 ## Contact
 
