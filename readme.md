@@ -7,7 +7,16 @@
 ## How it works
 I made a new display driver that replaces the existing _SeedSigner ST7789 1.3_ driver, making possible to execute the device in a desktop enviroment.
 
+>Use it with the integrated buttons or with your keyboard ( Arrow Keys, Enter, 1,2,3 )
+
 I have tried to make it as non-invasive as possible so that the emulator can be used with other versions of Seedsigner with as little effort as possible.
+
+
+
+## :lock: Security tips
+- **Don't use it on an online computer** 
+- Use only the source code downloaded o cloned directly from the main SeedSigner repository [https://github.com/SeedSigner/seedsigner](https://github.com/SeedSigner/seedsigner)
+- SeedSigner Emulator only redirects inputs and display calls from _SeedSigner_ code to this _Emulator_ drivers,  you can check it making a diff to compare _hardware_ and _gui_ directories and files.
 
 
 
@@ -25,7 +34,7 @@ git clone https://github.com/SeedSigner/seedsigner.git
 cd seedsigner/src
 ```
 
-**3-** Download the contents of this respository [Seedsigner emulator (.zip)](https://github.com/enteropositivo/seedsigner-emulator/archive/refs/heads/master.zip) and merge the contents of the folder **seedsigner**
+**3-** Download the contents of this respository [Seedsigner emulator (.zip)](https://github.com/enteropositivo/seedsigner-emulator/archive/refs/heads/master.zip) and merge the contents of the folder 
 
 ![](img/tree_content.png)
 
@@ -34,16 +43,16 @@ with the existing **seedsigner** content you cloned in step 1.
 **4-** Install the following requeriments:
 
 ```sh
-pip3 install embit
 python3 -m pip install --upgrade Pillow
 python3 -m pip install --upgrade setuptools
+sudo apt-get install python3-tk
+sudo apt install libzbar0
+pip3 install embit
 pip3 install dataclasses
 pip3 install pyzbar
 pip3 install 
-sudo apt install libzbar0
 pip3 install git+https://github.com/jreesun/urtypes.git@e0d0db277ec2339650343eaf7b220fffb9233241
 pip3 install qrcode 
-sudo apt-get install python3-tk
 pip3 install tk
 ```
 
@@ -79,13 +88,11 @@ python3 -m pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\reso
 - [ ] Allow desktop webcam
 
 
+## :coffee: Buy me a Coffe
 
-## Alpha release !!
+I can work faster and more motivated if you help me with a donation 
 
-This is the first release and there are still many things to be solved.  The webcam is not deployed and the screensaver is not working properly.
-
-**so be patient because I will be solving everything**
-
+**bc1q554p5jqgdhle07cnc5cm6v6nu7ux9ztem8dggc**
 
 ## Contact
 
