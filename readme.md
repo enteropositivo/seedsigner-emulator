@@ -14,12 +14,6 @@ I have tried to make it as non-invasive as possible so that the emulator can be 
 ![](img/demo.gif)
 
 
-## :lock: Security tips
-- **Don't use it on an online computer** 
-- Use only the source code downloaded o cloned directly from the main SeedSigner repository [https://github.com/SeedSigner/seedsigner](https://github.com/SeedSigner/seedsigner)
-- SeedSigner Emulator only redirects inputs and display calls from _SeedSigner_ code to this _Emulator_ drivers,  you can check it making a diff to compare _hardware_ and _gui_ directories and files.
-
-
 
 ## Launch from source
 
@@ -88,6 +82,13 @@ python3 -m pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\reso
 ```
 
 **Note:** I'll upload releases for linux and windows
+
+
+## :lock: Security tips
+- **Don't use it on an online computer** 
+- Use only the source code downloaded o cloned directly from the main SeedSigner repository [https://github.com/SeedSigner/seedsigner](https://github.com/SeedSigner/seedsigner)
+- SeedSigner Emulator only redirects inputs and display calls from _SeedSigner_ code to this _Emulator_ drivers,  you can check it making a diff to compare _hardware_ and _gui_ directories and files.
+
 
 
 ## Pending Tasks
