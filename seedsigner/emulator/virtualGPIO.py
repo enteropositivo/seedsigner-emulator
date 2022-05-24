@@ -11,6 +11,7 @@ import time
 
 
 dictionaryPins = {}
+raisedPin=""
 
 class GPIO:
 
@@ -23,6 +24,8 @@ class GPIO:
     PUD_DOWN = 5
     PUD_UP = 6
     BCM = 7
+
+    
     
     #GPIO LIBRARY Functions
     def setmode(mode):
@@ -90,9 +93,12 @@ class GPIO:
 
 
     def input(channel):
-        global dictionaryPins
-        channel = str(channel)
+        global dictionaryPins, raisedPin
+        global raisedPin
 
+
+        channel = str(channel)
+        
         if channel not in dictionaryPins:
             #if channel is not setup
             raise Exception('GPIO must be setup before used')
@@ -101,12 +107,23 @@ class GPIO:
             if(objPin.SetMode == "OUT"):
                 #if channel is setup as OUTPUT and used as an INPUT
                 raise Exception('GPIO must be setup as IN')
-
+       
         objPin = dictionaryPins[channel]
+        
+        if (channel==raisedPin) & (raisedPin!="13") & (objPin.In == "0"):
+            time.sleep(0.02)
+            GPIO.risecallback(channel)
+            objPin.In = "1"
+            raisedPin=""
+            return False
+
         if(objPin.In == "1"):
             return True
         elif(objPin.Out == "0"):
             return False
+
+        
+    
 
 
     def cleanup():
@@ -116,20 +133,21 @@ class GPIO:
         GPIO.risecallback=callback
 
     def fire_raise_event(gpioID):
-        global dictionaryPins
+        global dictionaryPins, raisedPin 
 
         print( "Emulator GPIO:", gpioID)
         
         objPin = dictionaryPins[str(gpioID)]
         
         objPin.In = "0"
-        time.sleep(0.02)
-        objPin.In = "1"
-        GPIO.risecallback(gpioID)
-
-
-    def Raise():
-         GPIO.risecallback(13)           
+        raisedPin=str(gpioID)
+        
+        if (raisedPin=="13"):
+            GPIO.risecallback(gpioID)
+            time.sleep(0.02)
+            objPin.In = "1"
+            raisedPin=""
+    
         
            
             
