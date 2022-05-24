@@ -21,48 +21,55 @@ I have tried to make it as non-invasive as possible so that the emulator can be 
 
 
 
-## Usage from source
+## Launch from source
 
-**1-** First clone [SeedSigner](https://github.com/SeedSigner/seedsigner) repo
+**1-** Clone [SeedSigner](https://github.com/SeedSigner/seedsigner) repository
 
 ```sh
 git clone https://github.com/SeedSigner/seedsigner.git
-```
-
-**2-** Go to directory _seedsigner/src_
-
-```sh
 cd seedsigner/src
 ```
 
-**3-** Download the contents of this respository [Seedsigner emulator (.zip)](https://github.com/enteropositivo/seedsigner-emulator/archive/refs/heads/master.zip) and merge the contents of the folder 
+**2-** Convert it into a desktop application
+
+_Option 1_
+
+Download the contents from this respository [Seedsigner emulator (.zip)](https://github.com/enteropositivo/seedsigner-emulator/archive/refs/heads/master.zip) and merge the contents of the folder 
 
 ![](img/tree_content.png)
 
-with the existing **seedsigner** content you cloned in step 1.  
+with the existing **seedsigner** content you cloned in step 1. 
 
-**4-** Install the following requeriments:
+
+**OR**
+
+_Option 2_
+
+using command line
+
+```sh
+git clone http://github.com/enteropositivo/seedsigner-emulator.git
+rsync -a seedsigner-emulator/seedsigner ./
+```
+
+
+**3-** Install the following requeriments:
 
 ```sh
 python3 -m pip install --upgrade Pillow
 python3 -m pip install --upgrade setuptools
 sudo apt-get install python3-tk
 sudo apt install libzbar0
-pip3 install embit
-pip3 install dataclasses
-pip3 install pyzbar
-pip3 install 
 pip3 install git+https://github.com/jreesun/urtypes.git@e0d0db277ec2339650343eaf7b220fffb9233241
-pip3 install qrcode 
-pip3 install tk
+pip3 install embit dataclasses pyzbar qrcode tk
 ```
 
-**5-** Run the emulator
+**4-** Launch the emulator
 ```sh
 python3 main.py
 ```
 
-## Making a standalone executable
+## Making a standalone executable ( Optional )
 
 You'll need to install PYinstaller to be able to generate an executable for your OS.
 

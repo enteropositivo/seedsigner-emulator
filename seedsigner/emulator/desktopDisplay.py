@@ -42,7 +42,6 @@ class desktopDisplay(threading.Thread):
 
     def run(self):
         """run thread"""    
-        #self.root = tk.Toplevel()
         self.root = tk.Tk()
         
         from seedsigner.controller import Controller
@@ -50,7 +49,7 @@ class desktopDisplay(threading.Thread):
         self.root.title("SeedSigner Emulator v"+EMULATOR_VERSION+ " / "+controller.VERSION)
 
         self.root.protocol("WM_DELETE_WINDOW", self.callback)
-        self.root.geometry("490x245+200+200")
+        self.root.geometry("510x245+200+200")
         self.root.configure(bg='orange')
         self.root.iconphoto(False, tk.PhotoImage(file='seedsigner/resources/icons/emulator_icon.png'))
         # ....
@@ -67,40 +66,35 @@ class desktopDisplay(threading.Thread):
 
 
         self.btnL = Button(self.joystick, width=2, command = HardwareButtons.KEY_LEFT_PIN, bg='white')
-        #self.btnL.place(x=40, y=100)
         self.btnL.grid(row=1, column=0)
         self.bindButtonClick(self.btnL)
 
         self.btnR = Button(self.joystick, width=2, command = HardwareButtons.KEY_RIGHT_PIN, bg='white')
-        #self.btnR.place(x=100, y=100)
         self.btnR.grid(row=1, column=2)
         self.bindButtonClick(self.btnR)
 
         self.btnC = Button(self.joystick, width=2, command = HardwareButtons.KEY_PRESS_PIN)
-        #self.btnC.place(x=70, y=100)
         self.btnC.grid(row=1, column=1)
         self.bindButtonClick(self.btnC)
 
         self.btnU = Button(self.joystick, width=2, command = HardwareButtons.KEY_UP_PIN, bg='white')
-        #self.btnU.place(x=70, y=70)
         self.btnU.grid(row=0, column=1)
         self.bindButtonClick(self.btnU)
 
         self.btnD = Button(self.joystick, width=2, command = HardwareButtons.KEY_DOWN_PIN, bg='white')
-        #self.btnD.place(x=70, y=130)
         self.btnD.grid(row=2, column=1)
         self.bindButtonClick(self.btnD)
 
         self.btn1 = Button(self.root, width=4,  command = HardwareButtons.KEY1_PIN, bg='white')
-        self.btn1.place(x=400, y=50)
+        self.btn1.place(x=420, y=50)
         self.bindButtonClick(self.btn1)
 
         self.btn2 = Button(self.root, width=4,  command = HardwareButtons.KEY2_PIN, bg='white')
-        self.btn2.place(x=400, y=106)
+        self.btn2.place(x=420, y=106)
         self.bindButtonClick(self.btn2)
 
         self.btn3 = Button(self.root, width=4,  command = HardwareButtons.KEY3_PIN, bg='white')
-        self.btn3.place(x=400, y=162)
+        self.btn3.place(x=420, y=162)
         self.bindButtonClick(self.btn3)
 
         
@@ -135,6 +129,7 @@ class desktopDisplay(threading.Thread):
         GPIO.fire_raise_event(pin)
 
     def ShowImage(self,Image2,Xstart,Ystart):
+        while(self.root==0): time.sleep(0.1)
         imwidth, imheight = Image2.size
         if imwidth != self.width or imheight != self.height:
             raise ValueError('Image must be same dimensions as display \
