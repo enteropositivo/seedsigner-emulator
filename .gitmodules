@@ -1,0 +1,3 @@
+[submodule "seedsigner"]
+	path = seedsigner
+	url = https://github.com/SeedSigner/seedsigner.git
