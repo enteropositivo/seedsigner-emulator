@@ -17,37 +17,13 @@ I have tried to make it as non-invasive as possible so that the emulator can be 
 
 ## Launch from source
 
-**1-** Clone [SeedSigner](https://github.com/SeedSigner/seedsigner) repository
+1- Clone the repository:
 
 ```sh
-git clone https://github.com/SeedSigner/seedsigner.git
-cd seedsigner/src
+git clone --recursive https://github.com/enteropositivo/seedsigner-emulator.git
 ```
 
-**2-** Convert it into a desktop application
-
-_Option 1_
-
-Download the contents from this respository [Seedsigner emulator (.zip)](https://github.com/enteropositivo/seedsigner-emulator/archive/refs/heads/master.zip) and merge the contents of the folder 
-
-![](img/tree_content.png)
-
-with the existing **seedsigner** content you cloned in step 1. 
-
-
-**OR**
-
-_Option 2_
-
-using command line
-
-```sh
-git clone http://github.com/enteropositivo/seedsigner-emulator.git
-rsync -a seedsigner-emulator/seedsigner ./
-```
-
-
-**3-** Install the following requeriments:
+2- Install the following requeriments if needed:
 
 ```sh
 python3 -m pip install --upgrade Pillow
@@ -58,10 +34,14 @@ pip3 install git+https://github.com/jreesun/urtypes.git@e0d0db277ec2339650343eaf
 pip3 install embit dataclasses pyzbar qrcode tk
 ```
 
-**4-** Launch the emulator
+3- Run:
+
 ```sh
-python3 main.py
+./build
 ```
+
+It will copy the seedsigner-emulator code into SeedSigner and will run it automatically.
+
 
 ## Making a standalone executable ( Optional )
 
@@ -86,7 +66,6 @@ python3 -m pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\reso
 
 ## :lock: Security tips
 - **Don't use it on an online computer** 
-- Use only the source code downloaded o cloned directly from the main SeedSigner repository [https://github.com/SeedSigner/seedsigner](https://github.com/SeedSigner/seedsigner)
 - SeedSigner Emulator only redirects inputs and display calls from _SeedSigner_ code to this _Emulator_ drivers,  you can check it making a diff to compare _hardware_ and _gui_ directories and files.
 
 
