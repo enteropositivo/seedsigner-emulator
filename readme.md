@@ -55,7 +55,7 @@ python3 -m pip install --upgrade setuptools
 sudo apt-get install python3-tk
 sudo apt install libzbar0
 pip3 install git+https://github.com/jreesun/urtypes.git@e0d0db277ec2339650343eaf7b220fffb9233241
-pip3 install embit dataclasses pyzbar qrcode tk
+pip3 install embit dataclasses pyzbar qrcode tk opencv-python
 ```
 
 **4-** Launch the emulator
@@ -95,8 +95,9 @@ python3 -m pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\reso
 
 - [x] Fix screen saver
 - [ ] Fix keyboard capture on Linux (on windows works ok)
-- [ ] Allow desktop webcam
+- [x] Allow desktop webcam
 - [ ] Test command to make a **one file** standalone executable
+- [ ] Fix reading QR from desktop webcam
  
 
 
