@@ -17,7 +17,13 @@ I have tried to make it as non-invasive as possible so that the emulator can be 
 
 ## Launch from source
 
-1- Install the following requeriments:
+1- Clone the repository:
+
+```sh
+git clone --recursive https://github.com/enteropositivo/seedsigner-emulator.git
+```
+
+2- Install the following requeriments if needed:
 
 ```sh
 python3 -m pip install --upgrade Pillow
@@ -28,7 +34,7 @@ pip3 install git+https://github.com/jreesun/urtypes.git@e0d0db277ec2339650343eaf
 pip3 install embit dataclasses pyzbar qrcode tk
 ```
 
-2- Run:
+3- Run:
 
 ```sh
 ./build
