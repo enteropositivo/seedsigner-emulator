@@ -24,26 +24,32 @@ class WebcamVideoStream:
 		self.is_stopped = False
 		return self
 
+	def hasCamera(self):
+		return 	self.camera.isOpened()
+
 	def update(self):
 
-		if not self.camera.isOpened():
-			print("No Camera found")
+		if self.hasCamera():
+
+			# keep looping infinitely until the thread is stopped
+			while(not self.should_stop):
+				# grab the frame from the stream and clear the stream in
+				# preparation for the next frame
+				ret, stream = self.camera.read()
+				stream = cv2.resize(stream, (240,240))
+				stream = cv2.cvtColor(stream,cv2.COLOR_BGR2RGB)
+				time.sleep(0.01)
+				self.frame = stream
+
+			self.is_stopped = True
+			self.should_stop = False
 			return
 
-		# keep looping infinitely until the thread is stopped
-		while(not self.should_stop):
-			# grab the frame from the stream and clear the stream in
-			# preparation for the next frame
-			ret, stream = self.camera.read()
-			stream = cv2.resize(stream, (240,240))
-			stream = cv2.cvtColor(stream,cv2.COLOR_BGR2RGB)
-			time.sleep(0.01)
-			self.frame = stream
+		else:
+			self.is_stopped = True
+			self.should_stop = False
+			return
 
-		#self.camera.release()
-		self.is_stopped = True
-		self.should_stop = False
-		return
 
 
 	def read(self):

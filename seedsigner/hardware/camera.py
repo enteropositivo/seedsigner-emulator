@@ -39,6 +39,9 @@ class Camera(Singleton):
         if not self._video_stream:
             raise Exception("Must call start_video_stream first.")
         
+        if not self._video_stream.hasCamera(): 
+            raise Exception("Can not open Webcam")
+
         frame = self._video_stream.read()
         if not as_image:
             return frame

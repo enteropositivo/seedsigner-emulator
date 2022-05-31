@@ -84,10 +84,22 @@ python3 -m pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\reso
 **Note:** I'll upload releases for linux and windows
 
 
+## Intalling on TAILS OS
+
+**Use**
+```sh
+torsocks pip3 install ...
+```
+**Instead**
+```sh
+pip3 install ...
+```
+
+
 ## :lock: Security tips
-- **Don't use it on an online computer** 
-- Use only the source code downloaded o cloned directly from the main SeedSigner repository [https://github.com/SeedSigner/seedsigner](https://github.com/SeedSigner/seedsigner)
-- SeedSigner Emulator only redirects inputs and display calls from _SeedSigner_ code to this _Emulator_ drivers,  you can check it making a diff to compare _hardware_ and _gui_ directories and files.
+- **Don't use it for real transactions** 
+- This emulator is made for testing Seedsigner source code on your desktop.   
+- You can modify or contribute to seedsigner without the need to upload the code to a  Raspberry Pi Zero each time 
 
 
 
