@@ -55,13 +55,20 @@ python3 -m pip install --upgrade setuptools
 sudo apt-get install python3-tk
 sudo apt install libzbar0
 pip3 install git+https://github.com/jreesun/urtypes.git@e0d0db277ec2339650343eaf7b220fffb9233241
-pip3 install embit dataclasses pyzbar qrcode tk opencv-python
+pip3 install -e https://github.com/enteropositivo/pyzbar.git@a52ff0b2e8ff714ba53bbf6461c89d672a304411#egg=pyzbar
+pip3 install embit dataclasses qrcode tk opencv-python
 ```
 
 **4-** Launch the emulator
 ```sh
 python3 main.py
 ```
+
+## ZBar library for Windows
+
+If your are using the code on windows platform you should download ZBar library v0.23.91 from [https://github.com/enteropositivo/pyzbar/releases/tag/v0.1.10-ss](https://github.com/enteropositivo/pyzbar/releases/tag/v0.1.10-ss) and its dependencies to  **/src/pyzbar/pyzbar/**
+
+
 
 ## Making a standalone executable ( Optional )
 
