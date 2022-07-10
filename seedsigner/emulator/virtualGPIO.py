@@ -110,7 +110,7 @@ class GPIO:
        
         objPin = dictionaryPins[channel]
         
-        if (channel==raisedPin) & (raisedPin!="13") & (objPin.In == "0"):
+        if (channel==raisedPin) & (raisedPin!="13") & (raisedPin!="20") & (objPin.In == "0"):
             time.sleep(0.02)
             GPIO.risecallback(channel)
             objPin.In = "1"
@@ -142,7 +142,7 @@ class GPIO:
         objPin.In = "0"
         raisedPin=str(gpioID)
         
-        if (raisedPin=="13"):
+        if (raisedPin=="13") | (raisedPin=="20"):
             GPIO.risecallback(gpioID)
             time.sleep(0.02)
             objPin.In = "1"
