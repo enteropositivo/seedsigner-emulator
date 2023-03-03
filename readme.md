@@ -64,13 +64,15 @@ pip3 install embit dataclasses qrcode tk opencv-python
 python3 main.py
 ```
 
+Note: On Windows you can either interact with the buttons at the window or use keyboard arrows, Enter, Numpad_1, Numpad_2, Numpad_3
+
 ## ZBar library for Windows
 
 If your are using the code on windows platform you should download ZBar library v0.23.91 from [https://github.com/enteropositivo/pyzbar/releases/tag/v0.1.10-ss](https://github.com/enteropositivo/pyzbar/releases/tag/v0.1.10-ss) and its dependencies to  **/src/pyzbar/pyzbar/**
 
 Download all of pyzbar `.dll` files. When you get this error executing the project: `FileNotFoundError: Could not find module 'libiconv-2.dll' (or one of its dependencies). Try using the full path with constructor syntax.` just copy all the `.dll` files to the folder listed right before the error, mine was: `C:\Users\MYUSER\AppData\Local\Programs\Python\Python39\lib\site-packages\pyzbar` (remember to replace MYUSER with yours)
 
-If executing and get this error: `Module ‘os’ has no attribute ‘uname’`, edit the file XXXX:
+If executing and get this error: `Module ‘os’ has no attribute ‘uname’`, edit the file `seedsigner\models\settings.py`:
 ```python
 # Add this import at top
 import platform
