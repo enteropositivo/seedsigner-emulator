@@ -55,7 +55,7 @@ python3 -m pip install --upgrade setuptools
 sudo apt-get install python3-tk
 sudo apt install libzbar0
 pip3 install git+https://github.com/jreesun/urtypes.git@e0d0db277ec2339650343eaf7b220fffb9233241
-pip3 install -e https://github.com/enteropositivo/pyzbar.git@a52ff0b2e8ff714ba53bbf6461c89d672a304411#egg=pyzbar
+pip3 install -e git+https://github.com/enteropositivo/pyzbar.git@a52ff0b2e8ff714ba53bbf6461c89d672a304411#egg=pyzbar
 pip3 install embit dataclasses qrcode tk opencv-python
 ```
 
