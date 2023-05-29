@@ -25,11 +25,19 @@ class GPIO:
     PUD_UP = 6
     BCM = 7
 
+    SLEEP_TIME_S=0.1
+    SLEEP_TIME_L=1.5
+
+    STR_KEY_PRESS = "13"
+    STR_KEY1 = "21"
+    STR_KEY2 = "20"
+    STR_KEY3 = "16"
+
     
     
     #GPIO LIBRARY Functions
     def setmode(mode):
-        time.sleep(1)
+        time.sleep(GPIO.SLEEP_TIME_L)
             
     def setwarnings(flag):
         pass
@@ -110,8 +118,8 @@ class GPIO:
        
         objPin = dictionaryPins[channel]
         
-        if (channel==raisedPin) & (raisedPin!="13") & (raisedPin!="20") & (objPin.In == "0"):
-            time.sleep(0.02)
+        if (channel==raisedPin) & (raisedPin!=GPIO.STR_KEY_PRESS) & (raisedPin!=GPIO.STR_KEY2) & (objPin.In == "0"):
+            time.sleep(GPIO.SLEEP_TIME_S)
             GPIO.risecallback(channel)
             objPin.In = "1"
             raisedPin=""
@@ -142,9 +150,14 @@ class GPIO:
         objPin.In = "0"
         raisedPin=str(gpioID)
         
-        if (raisedPin=="13") | (raisedPin=="20"):
+        # Added HardwareButtonsConstants.KEY1 and KEY3
+        if ((raisedPin==GPIO.STR_KEY_PRESS) |
+            (raisedPin==GPIO.STR_KEY2) |
+            (raisedPin==GPIO.STR_KEY1) |
+            (raisedPin==GPIO.STR_KEY3)
+            ):
             GPIO.risecallback(gpioID)
-            time.sleep(0.02)
+            time.sleep(GPIO.SLEEP_TIME_S)
             objPin.In = "1"
             raisedPin=""
     
