@@ -103,14 +103,52 @@ python3 -m pyinstaller --clean --add-data seedsigner\\resources;seedsigner\\reso
 
 ## Intalling on TAILS OS
 
-**Use**
+These are some notes that could help you installing Seedsigner Emulator on Tails OS
+
+```sh
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install python3-pip
+
+git clone http://github.com/seedsigner/seedsigner.git
+cd seedsigner/src
+
+git clone http://github.com/enteropositivo/seedsigner-emulator.git
+rsync -a seedsigner-emulator/seedsigner ./
+```
+
+Now install all requeriments from previous (section 3)
+
+**Installing pip packages**
+- download them from pypi.org
+- install with:
+
+```sh
+sudo python3 setup.py install  PACKAGE_NAME
+```
+
+**If some pip package fails to install with previous method use the folowwing one:**
+Download from pypi.org ("download files" section) the corresponding  .whl 
+
+```sh
+pip install  PACKAGE_FILE.whl 
+```
+
+**Warning!  Install Pillow downloading package from   https://pypi.org/project/Pillow/#files**
+
+```sh
+pip install Pillow-9.5.0-cp39-cp39-manylinux_2_28_x86_64.whl
+```
+
+
+**Problem with sockets downloading or installing some pip package ? USE TORSOCKS**
 ```sh
 torsocks pip3 install ...
 ```
-**Instead**
-```sh
-pip3 install ...
-```
+
+**Finally install**
+- uniblow
+- zbarcam
 
 
 ## :lock: Security tips
