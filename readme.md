@@ -147,7 +147,6 @@ torsocks pip3 install ...
 ```
 
 **Finally install**
-- uniblow
 - zbarcam
 
 
