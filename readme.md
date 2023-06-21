@@ -160,19 +160,16 @@ torsocks pip3 install ...
 ## Pending Tasks
 
 - [x] Fix screen saver
-- [ ] Fix keyboard capture on Linux (on windows works ok)
+- [x] Fix keyboard capture on Linux (on windows works ok)
 - [x] Allow desktop webcam
-- [ ] Test command to make a **one file** standalone executable
-- [ ] Fix reading QR from desktop webcam
+- [x] Test command to make a **one file** standalone executable
+- [x] Fix reading QR from desktop webcam
  
 
 
 ## :coffee: Buy me a Coffe
 
-I can work faster and more motivated if you help me with a donation 
-
-**bc1q554p5jqgdhle07cnc5cm6v6nu7ux9ztem8dggc**
-
+⚡ enteropositivo@getalby.com
 
 ## Contact
 
