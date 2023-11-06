@@ -50,7 +50,7 @@ rsync -a seedsigner-emulator/seedsigner ./
 **3-** Install the following requeriments:
 
 ```sh
-python3 -m pip install --upgrade Pillow
+python3 -m pip install pillow==9.5.0
 python3 -m pip install --upgrade setuptools
 sudo apt-get install python3-tk
 sudo apt install libzbar0
@@ -61,6 +61,7 @@ pip3 install embit dataclasses qrcode tk opencv-python
 
 **4-** Launch the emulator
 ```sh
+cd src
 python3 main.py
 ```
 
