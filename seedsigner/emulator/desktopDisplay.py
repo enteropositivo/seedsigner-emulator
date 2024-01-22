@@ -19,7 +19,7 @@ from PIL import ImageTk
 import threading
 import os
 
-EMULATOR_VERSION = '0.1'
+EMULATOR_VERSION = '0.2'
         
 
 class desktopDisplay(threading.Thread):

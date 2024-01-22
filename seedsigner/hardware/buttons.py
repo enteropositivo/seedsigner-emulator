@@ -1,11 +1,12 @@
-# import RPi.GPIO as GPIO
+from typing import List
+#import RPi.GPIO as GPIO
 from seedsigner.emulator.virtualGPIO import GPIO
 import time
 
 from seedsigner.models.singleton import Singleton
 
-
 class HardwareButtons(Singleton):
+    
     KEY_UP_PIN = 6
     KEY_DOWN_PIN = 19
     KEY_LEFT_PIN = 5
@@ -16,7 +17,6 @@ class HardwareButtons(Singleton):
     KEY2_PIN = 20
     KEY3_PIN = 16
 
-
     @classmethod
     def get_instance(cls):
         # This is the only way to access the one and only instance
@@ -24,7 +24,7 @@ class HardwareButtons(Singleton):
             cls._instance = cls.__new__(cls)
 
             #init GPIO
-            GPIO.setmode(GPIO.BCM)
+            #GPIO.setmode(GPIO.BOARD)
             GPIO.setup(HardwareButtons.KEY_UP_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Input with pull-up
             GPIO.setup(HardwareButtons.KEY_DOWN_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Input with pull-up
             GPIO.setup(HardwareButtons.KEY_LEFT_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Input with pull-up
@@ -60,7 +60,7 @@ class HardwareButtons(Singleton):
 
         while True:
             cur_time = int(time.time() * 1000)
-            if cur_time - self.last_input_time > controller.screensaver_activation_ms and not controller.screensaver.is_running:
+            if cur_time - self.last_input_time > controller.screensaver_activation_ms and not controller.is_screensaver_running:
                 # Start the screensaver. Will block execution until input detected.
                 controller.start_screensaver()
 
@@ -146,10 +146,13 @@ class HardwareButtons(Singleton):
         HardwareButtonsConstants.release_lock = True
         return True
 
-    def check_for_low(self, key) -> bool:
-        if self.GPIO.input(key) == self.GPIO.LOW:
-            self.update_last_input_time()
-            return True
+    def check_for_low(self, key: int = None, keys: List[int] = None) -> bool:
+        if key:
+            keys = [key]
+        for key in keys:
+            if self.GPIO.input(key) == self.GPIO.LOW:
+                self.update_last_input_time()
+                return True
         else:
             return False
 
@@ -159,21 +162,21 @@ class HardwareButtons(Singleton):
                 return True
         return False
 
-
-
-
 # class used as short hand for static button/channel lookup values
 # TODO: Implement `release_lock` functionality as a global somewhere. Mixes up design
 #   patterns to have a static constants class plus a settable global value.
 class HardwareButtonsConstants:
+
     KEY_UP = 6
     KEY_DOWN = 19
     KEY_LEFT = 5
     KEY_RIGHT = 26
     KEY_PRESS = 13
+
     KEY1 = 21
     KEY2 = 20
-    KEY3 = 16
+    KEY3 = 16        
+
     OVERRIDE = 1000
 
     ALL_KEYS = [
