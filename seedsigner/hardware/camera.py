@@ -61,29 +61,15 @@ class Camera(Singleton):
         if self._picamera is not None:
             self._picamera.close()
 
-        #self._picamera = PiCamera(resolution=resolution, framerate=24)
-        self._picamera.start_preview()
-
 
     def capture_frame(self):
-        if self._picamera is None:
-            raise Exception("Must call start_single_frame_mode first.")
-
-        # Set auto-exposure values
-        self._picamera.shutter_speed = self._picamera.exposure_speed
-        self._picamera.exposure_mode = 'off'
-        g = self._picamera.awb_gains
-        self._picamera.awb_mode = 'off'
-        self._picamera.awb_gains = g
-
-        stream = io.BytesIO()
-        self._picamera.capture(stream, format='jpeg')
-
-        frame = self._video_stream.read()
-        # "Rewind" the stream to the beginning so we can read its content
-        stream.seek(0)
+        
+        import cv2
+        cap = cv2.VideoCapture(0)
+        ret, frame = cap.read()
+        
         return Image.fromarray(frame ).rotate(90 + self._camera_rotation)
-        #return Image.open(stream).rotate(90 + self._camera_rotation)
+
 
 
     def stop_single_frame_mode(self):
