@@ -38,7 +38,7 @@ class WebcamVideoStream:
 				ret, stream = self.camera.read()
 				stream = cv2.resize(stream, (240,240))
 				stream = cv2.cvtColor(stream,cv2.COLOR_BGR2RGB)
-				time.sleep(0.01)
+				time.sleep(0.1)
 				self.frame = stream
 
 			self.is_stopped = True
