@@ -24,7 +24,7 @@ class HardwareButtons(Singleton):
             cls._instance = cls.__new__(cls)
 
             #init GPIO
-            #GPIO.setmode(GPIO.BOARD)
+            GPIO.setmode(GPIO.BOARD)
             GPIO.setup(HardwareButtons.KEY_UP_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)    # Input with pull-up
             GPIO.setup(HardwareButtons.KEY_DOWN_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Input with pull-up
             GPIO.setup(HardwareButtons.KEY_LEFT_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Input with pull-up
@@ -126,7 +126,7 @@ class HardwareButtons(Singleton):
 
     def add_events(self, keys=[]):
         for key in keys:
-            GPIO.add_event_detect(key, 1, callback=HardwareButtons.rising_callback)
+            GPIO.add_event_detect(0, 0, callback=HardwareButtons.rising_callback)
 
 
     def rising_callback(channel):
