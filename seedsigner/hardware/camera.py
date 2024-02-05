@@ -64,10 +64,7 @@ class Camera(Singleton):
 
     def capture_frame(self):
         
-        import cv2
-        cap = cv2.VideoCapture(0)
-        ret, frame = cap.read()
-        
+        frame = WebcamVideoStream.single_frame()
         return Image.fromarray(frame ).rotate(90 + self._camera_rotation)
 
 

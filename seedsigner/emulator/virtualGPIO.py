@@ -4,7 +4,7 @@
 #
 #  by: @EnteroPositivo (Twitter, Gmail, GitHub)
 #   
-#  Code from: https://roderickvella.wordpress.com/2016/06/28/raspberry-pi-gpio-emulator/
+#  Code adapted from: https://roderickvella.wordpress.com/2016/06/28/raspberry-pi-gpio-emulator/
 
 
 import time
@@ -24,17 +24,11 @@ class GPIO:
     PUD_DOWN = 5
     PUD_UP = 6
     BCM = 7
+    BOARD = 101
 
     SLEEP_TIME_S=0.1
     SLEEP_TIME_L=1.5
 
-    STR_KEY_PRESS = "13"
-    STR_KEY1 = "21"
-    STR_KEY2 = "20"
-    STR_KEY3 = "16"
-
-    
-    
     #GPIO LIBRARY Functions
     def setmode(mode):
         time.sleep(GPIO.SLEEP_TIME_L)
@@ -104,7 +98,7 @@ class GPIO:
         global dictionaryPins, raisedPin
         global raisedPin
 
-
+        #print(channel)
         channel = str(channel)
         
         if channel not in dictionaryPins:
@@ -117,21 +111,13 @@ class GPIO:
                 raise Exception('GPIO must be setup as IN')
        
         objPin = dictionaryPins[channel]
-        
-        if (channel==raisedPin) & (raisedPin!=GPIO.STR_KEY_PRESS) & (raisedPin!=GPIO.STR_KEY2) & (objPin.In == "0"):
-            time.sleep(GPIO.SLEEP_TIME_S)
-            GPIO.risecallback(channel)
-            objPin.In = "1"
+
+        if(channel==raisedPin):
             raisedPin=""
-            return False
+            return GPIO.LOW
+        else:
+            return GPIO.HIGH
 
-        if(objPin.In == "1"):
-            return True
-        elif(objPin.Out == "0"):
-            return False
-
-        
-    
 
 
     def cleanup():
@@ -139,29 +125,18 @@ class GPIO:
 
     def add_event_detect(channel,edge,callback):
         GPIO.risecallback=callback
-
-    def fire_raise_event(gpioID):
-        global dictionaryPins, raisedPin 
-
-        print( "Emulator GPIO:", gpioID)
-        
-        objPin = dictionaryPins[str(gpioID)]
-        
-        objPin.In = "0"
-        raisedPin=str(gpioID)
-        
-        # Added HardwareButtonsConstants.KEY1 and KEY3
-        if ((raisedPin==GPIO.STR_KEY_PRESS) |
-            (raisedPin==GPIO.STR_KEY2) |
-            (raisedPin==GPIO.STR_KEY1) |
-            (raisedPin==GPIO.STR_KEY3)
-            ):
-            GPIO.risecallback(gpioID)
-            time.sleep(GPIO.SLEEP_TIME_S)
-            objPin.In = "1"
-            raisedPin=""
     
-        
+    def set_input(gpioID, state):
+        global raisedPin
+
+        #print( "Emulator GPIO:", gpioID, " = ", str(state))
+        if(state==GPIO.HIGH):
+            raisedPin=str(gpioID)
+            GPIO.risecallback(gpioID)
+        else:
+            raisedPin=""
+
+
            
             
        
