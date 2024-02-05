@@ -50,17 +50,18 @@ rsync -a seedsigner-emulator/seedsigner ./
 **3-** Install the following requeriments:
 
 ```sh
-python3 -m pip install --upgrade Pillow
+python3 -m pip install pillow==9.5.0
 python3 -m pip install --upgrade setuptools
 sudo apt-get install python3-tk
 sudo apt install libzbar0
-pip3 install git+https://github.com/jreesun/urtypes.git@e0d0db277ec2339650343eaf7b220fffb9233241
+pip3 install git+https://github.com/selfcustody/urtypes.git
 pip3 install git+https://github.com/enteropositivo/pyzbar.git@a52ff0b2e8ff714ba53bbf6461c89d672a304411#egg=pyzbar
 pip3 install embit dataclasses qrcode tk opencv-python
 ```
 
 **4-** Launch the emulator
 ```sh
+cd src
 python3 main.py
 ```
 
@@ -68,17 +69,11 @@ Note: On Windows you can either interact with the buttons at the window or use k
 
 ## ZBar library for Windows
 
-If your are using the code on windows platform you should download ZBar library v0.23.91 from [https://github.com/enteropositivo/pyzbar/releases/tag/v0.1.10-ss](https://github.com/enteropositivo/pyzbar/releases/tag/v0.1.10-ss) and its dependencies to  **/src/pyzbar/pyzbar/**
+When you get this error executing the project: `FileNotFoundError: Could not find module 'libiconv-2.dll' (or one of its dependencies). Try using the full path with constructor syntax.` on Windows platform you should download all of pyzbar `.dll` files  from [https://github.com/enteropositivo/pyzbar/releases/tag/v0.1.10-ss](https://github.com/enteropositivo/pyzbar/releases/tag/v0.1.10-ss) -  just copy all the `.dll` files to the folder listed right before the error, mine was: `C:\Users\MYUSER\AppData\Local\Programs\Python\Python39\lib\site-packages\pyzbar` (remember to replace MYUSER with yours) - ZBar library v0.23.91
 
-Download all of pyzbar `.dll` files. When you get this error executing the project: `FileNotFoundError: Could not find module 'libiconv-2.dll' (or one of its dependencies). Try using the full path with constructor syntax.` just copy all the `.dll` files to the folder listed right before the error, mine was: `C:\Users\MYUSER\AppData\Local\Programs\Python\Python39\lib\site-packages\pyzbar` (remember to replace MYUSER with yours)
+## Other errors
 
-If executing and get this error: `Module ‘os’ has no attribute ‘uname’`, edit the file `seedsigner\models\settings.py`:
-```python
-# Add this import at top
-import platform
-
-# search where the code uses os.uname() and change for platform.uname()
-```
+If you get this error: `ValueError: mutable default <class 'seedsigner.views.view.Destination'> for field next_destination is not allowed: use default_factory` - edit the file `seedsigner\src\seedsigner\views\view.py` and change the line: `next_destination: Destination = Destination(MainMenuView, clear_history=True)` to `next_destination: Destination = None`
 
 ## Making a standalone executable ( Optional )
 
