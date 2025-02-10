@@ -1,7 +1,6 @@
 from PIL import Image, ImageDraw
 from threading import Lock
 
-from seedsigner.gui.components import Fonts, GUIConstants
 #from seedsigner.hardware.ST7789 import ST7789
 from seedsigner.emulator.desktopDisplay import desktopDisplay
 from seedsigner.models.singleton import ConfigurableSingleton
@@ -33,7 +32,7 @@ class Renderer(ConfigurableSingleton):
         renderer.canvas = Image.new('RGB', (renderer.canvas_width, renderer.canvas_height))
         renderer.draw = ImageDraw.Draw(renderer.canvas)
 
-
+    
     def show_image(self, image=None, alpha_overlay=None, show_direct=False):
         if show_direct:
             # Use the incoming image as the canvas and immediately render
