@@ -152,7 +152,9 @@ class desktopDisplay(threading.Thread):
         self.label.image=self.tkimage
         self.label.place(x=125, y=10)
        
-        
+    show_image = ShowImage  # Alias to call "ShowImage" as "show_image" (compatibility with the merged SeedSigner PR #741)
+
+
     def clear(self):
         """Clear contents of image buffer"""
  
