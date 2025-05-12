@@ -50,6 +50,7 @@ class Renderer(ConfigurableSingleton):
             self.disp = desktopDisplay(self.display_type, width=int(width), height=int(height))
         else:
             # Modifies the existing instance without creating a new one
+            self.disp.display_type = self.display_type
             self.disp.width = int(width)
             self.disp.height = int(height)
             self.disp.update_geometry()
