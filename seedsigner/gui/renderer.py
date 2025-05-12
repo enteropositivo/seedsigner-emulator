@@ -4,7 +4,14 @@ from threading import Lock
 #from seedsigner.hardware.ST7789 import ST7789
 from seedsigner.emulator.desktopDisplay import desktopDisplay
 from seedsigner.models.singleton import ConfigurableSingleton
+from seedsigner.models.settings import Settings
+from seedsigner.models.settings_definition import SettingsConstants
 
+DISPLAY_TYPE__ST7789 = "st7789"
+DISPLAY_TYPE__ILI9341 = "ili9341"
+DISPLAY_TYPE__ILI9486 = "ili9486"
+
+ALL_DISPLAY_TYPES = [DISPLAY_TYPE__ST7789, DISPLAY_TYPE__ILI9341, DISPLAY_TYPE__ILI9486]
 
 
 class Renderer(ConfigurableSingleton):
