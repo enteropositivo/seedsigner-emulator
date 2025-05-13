@@ -4,7 +4,14 @@ from threading import Lock
 #from seedsigner.hardware.ST7789 import ST7789
 from seedsigner.emulator.desktopDisplay import desktopDisplay
 from seedsigner.models.singleton import ConfigurableSingleton
+from seedsigner.models.settings import Settings
+from seedsigner.models.settings_definition import SettingsConstants
 
+DISPLAY_TYPE__ST7789 = "st7789"
+DISPLAY_TYPE__ILI9341 = "ili9341"
+DISPLAY_TYPE__ILI9486 = "ili9486"
+
+ALL_DISPLAY_TYPES = [DISPLAY_TYPE__ST7789, DISPLAY_TYPE__ILI9341, DISPLAY_TYPE__ILI9486]
 
 
 class Renderer(ConfigurableSingleton):
@@ -23,16 +30,49 @@ class Renderer(ConfigurableSingleton):
         renderer = cls.__new__(cls)
         cls._instance = renderer
 
-        # Eventually we'll be able to plug in other display controllers
-        #renderer.disp = ST7789()
-        renderer.disp = desktopDisplay()
-        renderer.canvas_width = renderer.disp.width
-        renderer.canvas_height = renderer.disp.height
+        renderer.initialize_display() # (compatibility with the merged SeedSigner PR #741)
 
-        renderer.canvas = Image.new('RGB', (renderer.canvas_width, renderer.canvas_height))
-        renderer.draw = ImageDraw.Draw(renderer.canvas)
 
+    def initialize_display(self): # (compatibility with the merged SeedSigner PR #741)
+        # May be called while already running with a previous display driver; must
+        # prevent any other screen writes while we're changing the display driver.
+        self.lock.acquire()
+
+        display_config = Settings.get_instance().get_value(SettingsConstants.SETTING__DISPLAY_CONFIGURATION, default_if_none=True)
+        self.display_type = display_config.split("_")[0]
+        if self.display_type not in ALL_DISPLAY_TYPES:
+            raise Exception(f"Invalid display type: {self.display_type}")
+
+        width, height = display_config.split("_")[1].split("x")
+
+        if self.disp is None:  # Checks if an active instance already exists
+            # If it doesn't exist, creates a new instance
+            self.disp = desktopDisplay(self.display_type, width=int(width), height=int(height))
+        else:
+            # Modifies the existing instance without creating a new one
+            self.disp.display_type = self.display_type
+            self.disp.width = int(width)
+            self.disp.height = int(height)
+            self.disp.update_geometry()
     
+        if Settings.get_instance().get_value(SettingsConstants.SETTING__DISPLAY_COLOR_INVERTED, default_if_none=True) == SettingsConstants.OPTION__ENABLED:
+            self.disp.invert()
+
+        if self.display_type == DISPLAY_TYPE__ST7789:
+            self.canvas_width = self.disp.width
+            self.canvas_height = self.disp.height
+
+        elif self.display_type in [DISPLAY_TYPE__ILI9341, DISPLAY_TYPE__ILI9486]:
+            # Swap for the natively portrait-oriented displays
+            self.canvas_width = self.disp.height
+            self.canvas_height = self.disp.width
+
+        self.canvas = Image.new('RGB', (self.canvas_width, self.canvas_height))
+        self.draw = ImageDraw.Draw(self.canvas)
+
+        self.lock.release()
+
+        
     def show_image(self, image=None, alpha_overlay=None, show_direct=False):
         if show_direct:
             # Use the incoming image as the canvas and immediately render

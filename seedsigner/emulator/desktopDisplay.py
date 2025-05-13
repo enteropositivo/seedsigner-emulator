@@ -19,15 +19,22 @@ from PIL import ImageTk
 import threading
 import os
 
-EMULATOR_VERSION = '0.5'
+EMULATOR_VERSION = '0.75'
         
+DISPLAY_TYPE__ST7789 = "st7789"
+DISPLAY_TYPE__ILI9341 = "ili9341"
+DISPLAY_TYPE__ILI9486 = "ili9486"
+
+ALL_DISPLAY_TYPES = [DISPLAY_TYPE__ST7789, DISPLAY_TYPE__ILI9341, DISPLAY_TYPE__ILI9486]
+
 
 class desktopDisplay(threading.Thread):
     """class for desktop display."""
     root=0
-    def __init__(self):
-        self.width = 240
-        self.height = 240
+    def __init__(self, display_type: str = DISPLAY_TYPE__ST7789, width: int = 240, height: int = 240):
+        self.width = width
+        self.height = height
+        self.display_type = display_type
 
         # Multithreading
         threading.Thread.__init__(self)
@@ -56,7 +63,7 @@ class desktopDisplay(threading.Thread):
         self.root.title(title)
 
         self.root.protocol("WM_DELETE_WINDOW", self.callback)
-        self.root.geometry("480x260+240+240")
+        self.root.geometry(f"{self.width*2}x{self.height+20}+240+240")
         self.root.configure(bg='orange')
         self.root.iconphoto(False, tk.PhotoImage(file='seedsigner/resources/icons/emulator_icon.png'))
         # ....
@@ -94,15 +101,15 @@ class desktopDisplay(threading.Thread):
         self.bindButtonClick(self.btnD)
 
         self.btn1 = Button(self.root, image=pixel,  width=40, height=20,  command = HardwareButtons.KEY1_PIN, bg='white')
-        self.btn1.place(x=400, y=60)
+        self.btn1.place(x=self.width+160, y=60) # Button position dinamically (compatibility with the merged SeedSigner PR #741)
         self.bindButtonClick(self.btn1)
 
         self.btn2 = Button(self.root, image=pixel,  width=40, height=20,  command = HardwareButtons.KEY2_PIN, bg='white')
-        self.btn2.place(x=400, y=116)
+        self.btn2.place(x=self.width+160, y=116) # Button position dinamically (compatibility with the merged SeedSigner PR #741)
         self.bindButtonClick(self.btn2)
 
         self.btn3 = Button(self.root, image=pixel,  width=40, height=20,  command = HardwareButtons.KEY3_PIN, bg='white')
-        self.btn3.place(x=400, y=172)
+        self.btn3.place(x=self.width+160, y=172) # Button position dinamically (compatibility with the merged SeedSigner PR #741)
         self.bindButtonClick(self.btn3)
 
         
@@ -144,7 +151,12 @@ class desktopDisplay(threading.Thread):
         while(self.root==0): time.sleep(0.1)
         imwidth, imheight = Image2.size
         if imwidth != self.width or imheight != self.height:
-            raise ValueError('Image must be same dimensions as display \
+            if self.display_type == DISPLAY_TYPE__ILI9341: # Re-adapt Image when ILI9341 is selected (compatibility with the merged SeedSigner PR #741)
+                # Rotates image for ILI9341(320x240)
+                Image2 = Image2.rotate(90, expand=True)
+                Image2 = Image2.resize((self.width, self.height))
+            else:                
+                raise ValueError('Image must be same dimensions as display \
                 ({0}x{1}).' .format(self.width, self.height))
 
         self.tkimage= ImageTk.PhotoImage(Image2, master=self.root)
@@ -152,7 +164,20 @@ class desktopDisplay(threading.Thread):
         self.label.image=self.tkimage
         self.label.place(x=125, y=10)
        
-        
+    show_image = ShowImage  # Alias to call "ShowImage" as "show_image" (compatibility with the merged SeedSigner PR #741)
+
+    def update_geometry(self): # (compatibility with the merged SeedSigner PR #741)
+        """Update window size dynamically"""
+        self.root.geometry(f"{self.width*2}x{self.height+20}+240+240")
+        self.btn1.place(x=self.width+160, y=60)
+        self.btn2.place(x=self.width+160, y=116)
+        self.btn3.place(x=self.width+160, y=172)
+
+    def invert(self, enabled: bool = True): # (compatibility with the merged SeedSigner PR #741)
+        """Invert how the display interprets colors"""
+        pass #self.display.invert(enabled)
+
+
     def clear(self):
         """Clear contents of image buffer"""
  
